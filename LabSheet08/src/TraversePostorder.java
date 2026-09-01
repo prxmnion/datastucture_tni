@@ -1,4 +1,4 @@
-aimport java.util.ArrayDeque;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Queue;
@@ -17,29 +17,30 @@ public class TraversePostorder {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		Deque<Node> stack = new ArrayDeque<Node>();
 		Queue<Integer> queue = new ArrayDeque<Integer>();
-
-		if (node == null) {
-			return list;
-		}
 		
 		stack.push(node);
 		
 		while (!stack.isEmpty()) {
-			Node current = stack.pop();
+			Node current_node = stack.pop();
+			queue.offer(current_node.data);    //เก็บใน queue
 			
 			
-			
-			if (current.left != null) {
-				stack.push(current.left);
+			if (current_node.left != null) {   // เช็คขวาใส่ซ้าย โฟกัสตัวไหน สลับตัวนั้น
+				stack.push(current_node.left);
 				
 			}
-            if (current.right != null) {
-            	stack.push(current.right);
+            if (current_node.right != null) {
+            	stack.push(current_node.right);
             	
             }
-		}
+        
+         while (!queue.isEmpty()) {
+            list.addFirst(queue.poll());
+        	 
+               }
+              }
 		
 		return list;
-	}
+     }
 }
 
